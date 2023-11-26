@@ -13,10 +13,22 @@ use Illuminate\Support\Facades\DB;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\PerroController;
+
+Route::resource('perros', PerroController::class);
+
+Route::get('/perros', [PerroController::class, 'index']);
+Route::get('/perros/{id}', [PerroController::class, 'show']);
+Route::post('/perros', [PerroController::class, 'store']);
+Route::put('/perros/{id}', [PerroController::class, 'update']);
+Route::delete('/perros/{id}', [PerroController::class, 'destroy']);
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 Route::get('/db-check', function () {
     try {
