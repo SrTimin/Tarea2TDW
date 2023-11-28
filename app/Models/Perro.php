@@ -14,5 +14,4 @@ class Perro extends Model
 
     protected $table = 'perros';
 
-    protected $dates = ['deleted_at'];
 }

@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\DB;
 */
 use App\Http\Controllers\PerroController;
 
-Route::resource('perros', PerroController::class);
+// Route::resource('perros', PerroController::class);
 
 Route::get('/perros', [PerroController::class, 'index']);
 Route::get('/perros/{id}', [PerroController::class, 'show']);
-Route::post('/perros', [PerroController::class, 'store']);
+Route::post('/perros/crear', [PerroController::class, 'store']);
 Route::put('/perros/{id}', [PerroController::class, 'update']);
 Route::delete('/perros/{id}', [PerroController::class, 'destroy']);
 
@@ -27,8 +27,6 @@ Route::delete('/perros/{id}', [PerroController::class, 'destroy']);
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 Route::get('/db-check', function () {
     try {
@@ -42,5 +40,7 @@ Route::get('/db-check', function () {
         die("No se pudo conectar a la base de datos. Por favor, revisa tus configuraciones.");
     }
 });
+
+
 
 

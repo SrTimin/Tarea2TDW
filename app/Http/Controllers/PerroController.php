@@ -20,22 +20,32 @@ class PerroController extends Controller
         return response()->json($perro);
     }
 
+    public function create()
+    {
+        return view('perros.create');
+    }
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => 'required|string|max:12',
-            'url_foto' => 'required|url',
+            'foto_url' => 'required|url',
             'descripcion' => 'required|string',
+        ], [
+            'nombre.required' => 'El nombre es requerido',
+            'foto_url.required' => 'La URL de la foto es requerida',
+            'descripcion.required' => 'La descripción es requerida',
         ]);
-
-        Perro::create([
+        
+    
+        $perro = Perro::create([
             'nombre' => $request->nombre,
-            'url_foto' => $request->url_foto,
+            'foto_url' => $request->foto_url,
             'descripcion' => $request->descripcion,
         ]);
-
-        return redirect()->route('perros.index')->with('success', 'Perro creado exitosamente.');
+    
+        return response()->json(['perro' => $perro, 'message' => 'Perro creado exitosamente.'], 201);
     }
+    
     
     public function update(Request $request, $id)
     {
