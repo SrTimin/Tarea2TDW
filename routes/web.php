@@ -29,6 +29,8 @@ Route::get('/interacciones', [InteraccionController::class, 'index']);
 Route::get('/interacciones/preferencias/{idPerroInteresado}', [InteraccionController::class, 'showPreferencias']);
 Route::get('/interacciones/{id}', [InteraccionController::class, 'show']);
 Route::post('/interacciones/crear', [InteraccionController::class, 'store']);
+Route::put('/interacciones/{id}', [InteraccionController::class, 'update']);
+Route::delete('/interacciones/{id}', [InteraccionController::class, 'destroy']);
 
 
 

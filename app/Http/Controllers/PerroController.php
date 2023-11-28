@@ -19,6 +19,9 @@ class PerroController extends Controller
     public function show($id)
     {
         $perro = Perro::find($id);
+        if (!$perro) {
+            return response()->json(['error' => 'Perro no encontrado'], 404);
+        }
         return response()->json($perro);
     }
 
@@ -52,6 +55,9 @@ class PerroController extends Controller
     public function update(Request $request, $id)
     {
         $perro = Perro::find($id);
+        if (!$perro) {
+            return response()->json(['error' => 'Perro no encontrado'], 404);
+        }
         $perro->update($request->all());
         return response()->json($perro);
     }
@@ -59,6 +65,9 @@ class PerroController extends Controller
     public function destroy($id)
     {
         $perro = Perro::find($id);
+        if (!$perro) {
+            return response()->json(['error' => 'Perro no encontrado'], 404);
+        }
         $perro->delete();
         return response()->json('Perro eliminado correctamente');
     }
@@ -73,10 +82,14 @@ class PerroController extends Controller
     }
 
     public function getCandidatos($idPerroInteresado)
-{
-    $candidatos = Perro::where('id', '!=', $idPerroInteresado)->get(['id', 'nombre']);
-    return response()->json($candidatos);
-}
+    {
+        $perro = Perro::find($idPerroInteresado);
+        if (!$perro) {
+            return response()->json(['error' => 'Perro no encontrado'], 404);
+        }
+        $candidatos = Perro::where('id', '!=', $idPerroInteresado)->get(['id', 'nombre']);
+        return response()->json($candidatos);
+    }
 
     
 
