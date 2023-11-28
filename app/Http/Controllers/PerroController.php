@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Perro;
+use Illuminate\Support\Facades\DB;
+
 
 
 class PerroController extends Controller
@@ -60,4 +62,22 @@ class PerroController extends Controller
         $perro->delete();
         return response()->json('Perro eliminado correctamente');
     }
+
+    public function randomPerro()
+    {
+        $perro = Perro::select('id', 'nombre')->inRandomOrder()->first();
+        if (!$perro) {
+            return response()->json(['message' => 'No hay perros en la base de datos.'], 404);
+        }
+        return response()->json($perro);
+    }
+
+    public function getCandidatos($idPerroInteresado)
+{
+    $candidatos = Perro::where('id', '!=', $idPerroInteresado)->get(['id', 'nombre']);
+    return response()->json($candidatos);
+}
+
+    
+
 }
